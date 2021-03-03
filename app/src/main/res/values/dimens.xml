@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="lw_99">99dp</dimen>
+    <dimen name="lh_144">144dp</dimen>
+    <dimen name="radius_5">5dp</dimen>
+    <dimen name="elevation_5">5dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="lw_109">109dp</dimen>
+    <dimen name="lh_164">164dp</dimen>
+</resources>
