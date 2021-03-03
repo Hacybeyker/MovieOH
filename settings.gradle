@@ -1,2 +1,5 @@
+include ':entities'
+include ':repository'
+include ':usecases'
 include ':app'
 rootProject.name = "MovieOH"
