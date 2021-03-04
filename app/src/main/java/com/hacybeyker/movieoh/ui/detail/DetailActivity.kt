@@ -15,7 +15,6 @@ import com.hacybeyker.entities.Movie
 import com.hacybeyker.movieoh.R
 import com.hacybeyker.movieoh.databinding.ActivityDetailBinding
 import com.hacybeyker.movieoh.ui.movies.adapter.MovieAdapter
-import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 class DetailActivity : AppCompatActivity(), MovieAdapter.OnItemSelectedListener {
 
@@ -62,7 +61,10 @@ class DetailActivity : AppCompatActivity(), MovieAdapter.OnItemSelectedListener 
 
         viewModel.fetchMovieSimilar(movie = movie.id).observe(this) {
             it?.let {
-                adapterSimilar.items = it
+                if (it.isEmpty())
+                    binding.constraintMovieSimilar.visibility = View.GONE
+                else
+                    adapterSimilar.addData(it)
             }
         }
     }
@@ -70,7 +72,6 @@ class DetailActivity : AppCompatActivity(), MovieAdapter.OnItemSelectedListener 
     private fun configRecycler() {
         binding.recyclerMoviesSimilar.setHasFixedSize(true)
         binding.recyclerMoviesSimilar.itemAnimator = DefaultItemAnimator()
-        binding.recyclerMoviesSimilar.itemAnimator = LandingAnimator().apply { addDuration = 400 }
     }
 
     private fun getIntentData() {
