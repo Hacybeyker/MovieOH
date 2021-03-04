@@ -4,6 +4,7 @@ import com.hacybeyker.entities.Movie
 import com.hacybeyker.entities.Pagination
 import com.hacybeyker.repository.network.model.response.MovieResponse
 import com.hacybeyker.repository.network.services.MovieServices
+import com.hacybeyker.repository.network.util.toErrorResponse
 import com.hacybeyker.usecases.repository.network.IMovieRepositoryNetwork
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -19,8 +20,8 @@ class MovieNetwork : IMovieRepositoryNetwork, KoinComponent {
             response.body()?.apply {
                 movieObject = this.toMovie()
             }
-        }
-        return movieObject ?: throw Exception("Helouda")
+        } else throw response.errorBody().toErrorResponse().getApiException()
+        return movieObject ?: throw Exception()
     }
 
     override suspend fun fetchMoviePopular(page: Int): Pair<List<Movie>, Pagination> {
@@ -33,8 +34,8 @@ class MovieNetwork : IMovieRepositoryNetwork, KoinComponent {
                     Pagination(this.page, this.totalPages)
                 )
             }
-        }
-        return movies ?: throw Exception("Helouda")
+        } else throw response.errorBody().toErrorResponse().getApiException()
+        return movies ?: throw Exception()
     }
 
     override suspend fun fetchMovieSimilar(movie: Int): List<Movie> {
@@ -44,7 +45,7 @@ class MovieNetwork : IMovieRepositoryNetwork, KoinComponent {
             response.body()?.apply {
                 movies?.addAll(MovieResponse.toMovies(this.result))
             }
-        }
-        return movies ?: throw Exception("Helouda")
+        } else throw response.errorBody().toErrorResponse().getApiException()
+        return movies ?: throw Exception()
     }
 }

@@ -1,6 +1,5 @@
 package com.hacybeyker.movieoh.ui.movies
 
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +16,9 @@ import org.koin.core.inject
 class MovieViewModel : ViewModel(), KoinComponent {
 
     private val movieUseCase: MovieUseCase by inject()
+
+    private val errorMutableLiveData: MutableLiveData<Exception> by lazy { MutableLiveData<Exception>() }
+    val errorLiveData: LiveData<Exception> get() = errorMutableLiveData
 
     private val movieMutableLiveData: MutableLiveData<List<Movie>> by lazy { MutableLiveData<List<Movie>>() }
     val movieLiveData: LiveData<List<Movie>> get() = movieMutableLiveData
@@ -35,7 +37,7 @@ class MovieViewModel : ViewModel(), KoinComponent {
             loadingObserver.set(false)
         } catch (e: Exception) {
             loadingObserver.set(false)
-            Log.e("TAG", "Here - fetchMovieUpcoming: ${e.message}")
+            errorMutableLiveData.postValue(e)
         }
     }
 }
