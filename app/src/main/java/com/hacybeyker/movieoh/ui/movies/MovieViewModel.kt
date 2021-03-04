@@ -18,7 +18,6 @@ class MovieViewModel : ViewModel(), KoinComponent {
     fun fetchMovieUpcoming() = liveData(Dispatchers.IO) {
         try {
             val response = movieUseCase.fetchMovieUpcoming()
-            //movieUpcoming.postValue(response)
             emit(response)
         } catch (e: Exception) {
             Log.e("TAG", "Here - fetchMovieUpcoming: ${e.message}")

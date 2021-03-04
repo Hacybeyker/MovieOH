@@ -5,7 +5,7 @@ import com.hacybeyker.entities.Movie
 
 data class MovieResponse(
     @SerializedName("id")
-    val id: String?,
+    val id: Int?,
     @SerializedName("original_title")
     val originalTitle: String?,
     @SerializedName("title")
@@ -19,18 +19,24 @@ data class MovieResponse(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("backdrop_path")
-    val backdropPath: String?
+    val backdropPath: String?,
+    @SerializedName("runtime")
+    val runtime: Int?,
+    @SerializedName("status")
+    val status: String?
 ) {
-    private fun toMovie(): Movie {
+    fun toMovie(): Movie {
         return Movie(
-            id = id ?: "",
+            id = id ?: 0,
             originalTitle = originalTitle ?: "",
             title = title ?: "",
             overview = overview ?: "",
             releaseDate = releaseDate ?: "",
             voteAverage = voteAverage ?: 0.0,
             posterPath = posterPath ?: "",
-            backdropPath = backdropPath ?: ""
+            backdropPath = backdropPath ?: "",
+            runtime = runtime ?: 0,
+            status = status ?: ""
         )
     }
 
