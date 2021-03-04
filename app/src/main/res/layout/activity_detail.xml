@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adapterSimilar"
+            type="com.hacybeyker.movieoh.ui.movies.adapter.MovieAdapter" />
+
+        <variable
+            name="movie"
+            type="com.hacybeyker.entities.Movie" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedMovie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            tools:context=".ui.detail.DetailActivity">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageMoviePosterBack"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcImage="@{movie.backdropPath}"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageMoviePosterFront"
+                android:layout_width="@dimen/lw_109"
+                android:layout_height="@dimen/lh_164"
+                android:layout_marginStart="@dimen/margin_16"
+                android:elevation="@dimen/elevation_5"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/imageMoviePosterBack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageMoviePosterBack"
+                app:srcImage="@{movie.posterPath}"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textMovieTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_bold"
+                android:maxLines="2"
+                android:text="@{movie.originalTitle}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/imageMoviePosterBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageMoviePosterFront"
+                app:layout_constraintTop_toBottomOf="@id/imageMoviePosterBack"
+                tools:text="@tools:sample/first_names" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textMovieRelease"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/montserrat"
+                android:text="@{movie.releaseDate}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/textMovieTitle"
+                app:layout_constraintTop_toBottomOf="@id/textMovieTitle"
+                tools:text="@tools:sample/first_names" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textMovieStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@{movie.status}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textMovieTitle"
+                tools:text="@tools:sample/first_names" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintMovieInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_16"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageMoviePosterFront">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textMovieVote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/icon_star"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="@{movie.voteAverageString}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textMovieRuntime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/first_names" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textMovieRuntime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="@{movie.runtimeString()}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textMovieVote"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="116 minutes" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintMovieOverview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintMovieInfo">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textMovieOverviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/about_this_movie"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textMovieOverview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:maxLines="3"
+                    android:text="@{movie.overview}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMovieOverviewTitle"
+                    tools:text="@tools:sample/lorem/random" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintMovieCredits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintMovieOverview">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintMovieSimilar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintMovieCredits">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textMovieSimilarTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/similar_movies"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerMoviesSimilar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:orientation="horizontal"
+                    app:adapter="@{adapterSimilar}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textMovieSimilarTitle"
+                    tools:listitem="@layout/item_movie" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

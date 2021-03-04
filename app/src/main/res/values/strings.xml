@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MovieOH</string>
+    <string name="about_this_movie">About this movie</string>
+    <string name="similar_movies">Similar Movies</string>
 </resources>
