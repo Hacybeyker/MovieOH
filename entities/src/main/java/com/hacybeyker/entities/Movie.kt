@@ -17,14 +17,15 @@ data class Movie(
     val status: String
 ) : Parcelable {
     fun voteAverageString(): String {
-        return voteAverage.toString()
+        return if (voteAverage == 0.0) "" else voteAverage.toString()
     }
 
     fun runtimeString(): String {
-        runtime.let {
-            val hours: Int = it / 60
-            val minutes: Int = it % 60
-            return "${hours}hr ${minutes}min"
+        return if (runtime == 0) ""
+        else {
+            val hours: Int = runtime / 60
+            val minutes: Int = runtime % 60
+            "${hours}hr ${minutes}min"
         }
     }
 }

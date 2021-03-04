@@ -1,6 +1,7 @@
 package com.hacybeyker.repository.network.implement
 
 import com.hacybeyker.entities.Movie
+import com.hacybeyker.entities.Pagination
 import com.hacybeyker.repository.network.model.response.MovieResponse
 import com.hacybeyker.repository.network.services.MovieServices
 import com.hacybeyker.usecases.repository.network.IMovieRepositoryNetwork
@@ -22,12 +23,15 @@ class MovieNetwork : IMovieRepositoryNetwork, KoinComponent {
         return movieObject ?: throw Exception("Helouda")
     }
 
-    override suspend fun fetchMovieUpcoming(): List<Movie> {
-        val response = services.fetchMovieUpcoming()
-        val movies: ArrayList<Movie>? by lazy { arrayListOf() }
+    override suspend fun fetchMoviePopular(page: Int): Pair<List<Movie>, Pagination> {
+        val response = services.fetchMoviePopular(page = page)
+        var movies: Pair<List<Movie>, Pagination>? = null
         if (response.isSuccessful) {
             response.body()?.apply {
-                movies?.addAll(MovieResponse.toMovies(this.result))
+                movies = Pair(
+                    MovieResponse.toMovies(this.result),
+                    Pagination(this.page, this.totalPages)
+                )
             }
         }
         return movies ?: throw Exception("Helouda")

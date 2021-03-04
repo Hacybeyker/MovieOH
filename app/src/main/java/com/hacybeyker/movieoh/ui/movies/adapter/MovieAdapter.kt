@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hacybeyker.entities.Movie
 import com.hacybeyker.movieoh.R
@@ -13,13 +12,12 @@ import com.hacybeyker.movieoh.databinding.ItemMovieBinding
 class MovieAdapter(private val onItemSelectedListener: OnItemSelectedListener) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolderViewHolder>() {
 
-    var items: List<Movie> = arrayListOf()
-        set(value) {
-            val movieDiffUtil = MovieDiffUtil(this.items, value)
-            val movieDiffResult = DiffUtil.calculateDiff(movieDiffUtil)
-            field = value
-            movieDiffResult.dispatchUpdatesTo(this)
-        }
+    private val items = arrayListOf<Movie>()
+
+    fun addData(data: List<Movie>) {
+        this.items.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolderViewHolder {
         return MovieViewHolderViewHolder.from(parent, onItemSelectedListener)
