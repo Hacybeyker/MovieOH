@@ -1,7 +1,9 @@
 package com.hacybeyker.movieoh.ui.movies
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -12,6 +14,7 @@ import com.hacybeyker.movieoh.databinding.ActivityMainBinding
 import com.hacybeyker.movieoh.ui.detail.DetailActivity
 import com.hacybeyker.movieoh.ui.movies.adapter.MovieAdapter
 import com.hacybeyker.movieoh.utils.EndLessRecycler
+import com.hacybeyker.repository.network.exception.ApiException
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MovieAdapter.OnItemSelectedListener {
@@ -65,6 +68,24 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemSelectedListener {
                 this.pagination = it
             }
         }
+
+        viewModel.errorLiveData.observe(this) {
+            it?.let { exception ->
+                when (exception) {
+                    is ApiException -> showError(message = exception.statusMessage)
+                    else -> showError(getString(R.string.error_ocurred))
+                }
+            }
+        }
+    }
+
+    private fun showError(message: String) {
+        AlertDialog.Builder(ContextThemeWrapper(this, R.style.ThemeOverlay_AppCompat))
+            .setTitle(R.string.app_name)
+            .setCancelable(true)
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.ok)) { dialogInterface, _ -> dialogInterface.dismiss() }
+            .show()
     }
 
     override fun onItemSelected(item: Movie, view: View?) {
